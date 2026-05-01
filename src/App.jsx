@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Users, BookOpen, Heart, Leaf, Sparkles, Shield, Star,
-  ArrowRight, Brain, CheckCircle2, ChevronRight, Menu
+  ArrowRight, Brain, CheckCircle2, ChevronRight, ChevronLeft, Menu, HeartHandshake, Lightbulb, MapPin, Plus
 } from 'lucide-react';
 
 const Preloader = () => {
@@ -72,7 +72,7 @@ const Navbar = () => {
             <a href="#services" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">What we do</a>
             <a href="#programs" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">Programs</a>
             <a href="#contact" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">Contact us</a>
-            <button className="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-full text-sm font-semibold transition-all shadow-sm">
+            <button className="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-md text-sm font-semibold transition-all shadow-sm">
               <Heart size={14} className="fill-current" />
               Donate Now
             </button>
@@ -88,47 +88,135 @@ const Navbar = () => {
   );
 };
 
+const heroSlides = [
+  {
+    Headline: "Social Awareness & Social Service Programs",
+    Description: "A number of awareness campaigns, social activities, and social services are conducted to effectuate a positive transformation in society. It tries to raise awareness about health, education, cleanliness, and social responsibilities.",
+    Image: "/hero-images/social-awareness.png"
+  },
+  {
+    Headline: "Academic Counseling",
+    Description: "It focuses on developing good qualities like honesty, discipline, reverence, and social values among the students so that they become ideal citizens.",
+    Image: "/hero-images/educational-guidance.jpg"
+  },
+  {
+    Headline: "Value-Based Education",
+    Description: "It focuses on developing good qualities like honesty, discipline, reverence, and social values among the students so that they become ideal citizens.",
+    Image: "/hero-images/value-based-education.png"
+  },
+  {
+    Headline: "Yoga, Meditation & Spiritual Awakening",
+    Description: "Yoga and meditation classes are organized to develop a peaceful mind, concentration ability, and mental balance. This reduces stress levels in an individual and instills a positive attitude towards life.",
+    Image: "/hero-images/yog.jpg"
+  },
+  {
+    Headline: "Empowerment of Women",
+    Description: "Several programs are organized for developing skills and empowering women to become self-reliant. This helps them become economically and socially empowered.",
+    Image: "/hero-images/woman-empowerment.jpg"
+  },
+  {
+    Headline: "Environmental & Sanitation Campaigns",
+    Description: "Campaigns have been organized for emphasizing the significance of environmental and sanitation awareness. Emphasis is given to plantation, cleanliness, and environmental protection.",
+    Image: "/hero-images/environment.jpg"
+  },
+  {
+    Headline: "Personal Development",
+    Description: "Personal counseling is done for the overall development of one’s personality. It develops self-confidence, effective communication skills, and leadership abilities.",
+    Image: "/hero-images/personality-development.jpg"
+  }
+];
+
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [currentSlide]);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <section id="home" className="relative pt-12 pb-16 md:pt-16 md:pb-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-orange-50/50">
-      <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <div className="text-left space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 border border-orange-200/60 text-orange-700 text-xs font-bold tracking-wide uppercase">
-              <Star size={12} className="text-orange-600" />
-              Where Children's Dreams Get Wings
-            </div>
-            <h1 className="text-3xl md:text-4xl lg:text-[42px] font-extrabold text-blue-950 leading-[1.1] tracking-tight">
-              Shape Your Child's Future with the <span className="text-orange-600">Power of Science!</span>
-            </h1>
-            <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed max-w-lg">
-              In today's competitive world, we focus on the intellectual, mental, and social development of students. Unlock your child's hidden talents with our DMIT assessment and specialized workshops.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <button className="group flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-950 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-md hover:shadow-blue-900/20">
-                Register Now
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="group flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-blue-900 border border-slate-200 px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
-                Learn More
-              </button>
-            </div>
-          </div>
+    <section id="home" className="relative w-full h-[600px] md:h-[800px] lg:h-screen min-h-[600px] overflow-hidden bg-slate-900 group">
+      {/* Background Images with smooth cross-fade */}
+      {heroSlides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none z-0'
+            }`}
+          style={{ zIndex: index === currentSlide ? 10 : 0 }}
+        >
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center transform scale(105) transition-transform duration-[10000ms] ease-out"
+            style={{
+              backgroundImage: `url(${slide.Image})`,
+              transform: index === currentSlide ? 'scale(1)' : 'scale(1.05)'
+            }}
+          ></div>
 
-          <div className="relative mt-8 lg:mt-0">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100 to-orange-50 rounded-2xl blur-2xl opacity-60 -z-10"></div>
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100 bg-slate-50 aspect-video lg:aspect-[4/3] flex items-center justify-center">
-              <img
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1000"
-                alt="Educational environment"
-                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-blue-900/5 mix-blend-multiply"></div>
+          {/* Soft, navy blue transparent gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-950/60 to-transparent"></div>
+
+          {/* Content Overlay */}
+          <div className="absolute inset-0 max-w-6xl mx-auto px-4 md:px-5 lg:px-8 flex items-center">
+            <div className="w-full md:w-3/5 lg:w-[45%] text-left space-y-4 md:space-y-6 pt-16 md:pt-0">
+              <h1 className="text-3xl md:text-5xl lg:text-5xl font-sans font-bold text-yellow-400 leading-tight tracking-tight drop-shadow-md">
+                {slide.Headline}
+              </h1>
+              <p className="text-base md:text-lg text-white font-medium leading-relaxed drop-shadow max-w-xl">
+                {slide.Description}
+              </p>
+              <div className="pt-2">
+                <a href="#about" className="inline-block text-white text-3xl md:text-4xl hover:text-orange-400 transition-colors tracking-wide drop-shadow-md" style={{ fontFamily: "'Caveat', cursive" }}>
+                  Read More
+                </a>
+              </div>
             </div>
-
-
           </div>
         </div>
+      ))}
+
+      {/* Carousel Controls - Side Arrows (visible on hover) */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20 transition-all opacity-0 md:group-hover:opacity-100 z-20 focus:opacity-100"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={24} />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20 transition-all opacity-0 md:group-hover:opacity-100 z-20 focus:opacity-100"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={24} />
+      </button>
+
+      {/* Carousel Controls - Dots */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+        {heroSlides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide
+              ? 'bg-yellow-400 w-8'
+              : 'bg-white/50 hover:bg-white/90 w-2'
+              }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
@@ -136,15 +224,61 @@ const Hero = () => {
 
 const AboutUs = () => {
   return (
-    <section id="about" className="relative py-16 md:py-24 bg-white overflow-hidden">
-      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-5 lg:px-8 text-center">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-blue-950 mb-6 tracking-tight drop-shadow-sm">About Us</h2>
-        <p className="text-slate-700 text-base md:text-lg leading-relaxed mb-12 max-w-5xl mx-auto font-medium">
-          Yashangan Foundation is a socio-educational organization that seeks to create a complete growth of the students and the people in society. The main aim is to discover the innate qualities in everyone and direct them in the right direction.
-          In the contemporary era of competition and speed, guidance, stability, and confidence play an important role. Knowing this essential aspect, Yashangan Foundation takes numerous actions in order to guide the students in their studies, personality building, value education, and career planning.
-          We ensure a balance between modernity and tradition by focusing on the intellectual, psychological, social, and spiritual aspects of our students' lives.
-        </p>
+    <section id="about" className="relative py-20 md:py-32 bg-slate-50/50 overflow-hidden" style={{ fontFamily: "'Noto Serif', serif" }}>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
+          {/* Left Column: Visual Layer */}
+          <div className="relative">
+            {/* Decorative elements for editorial feel */}
+            <div className="absolute -top-8 -left-8 w-64 h-64 bg-orange-100/50 rounded-full blur-3xl z-0"></div>
+            <div className="absolute -bottom-10 -right-10 w-full h-full bg-blue-50 rounded-[2rem] rotate-3 z-0"></div>
+
+            {/* Main Image Container */}
+            <div className="relative z-10 rounded-2xl shadow-2xl overflow-hidden border-8 border-white">
+              <img
+                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=2070&auto=format&fit=crop"
+                alt="Students studying and growing together"
+                className="w-full h-[400px] md:h-[550px] object-cover hover:scale(105) transition-transform duration-700"
+              />
+            </div>
+
+            {/* Floating badge for human touch */}
+          </div>
+
+          {/* Right Column: Content Layer */}
+          <div className="flex flex-col justify-center">
+            <span className="text-orange-500 text-sm font-bold tracking-[0.2em] uppercase mb-4 block">
+              ABOUT YASHANGAN FOUNDATION
+            </span>
+
+            <div className="space-y-6">
+              <p className="text-slate-600 text-base md:text-lg leading-relaxed">
+                Yashangan Foundation is a socio-educational organization that seeks to create a complete growth of the students and the people in society. The main aim is to discover the innate qualities in everyone and direct them in the right direction.
+              </p>
+
+              <p className="text-slate-600 text-base md:text-lg leading-relaxed mt-4">
+                In the contemporary era of competition and speed, guidance, stability, and confidence play an important role. Knowing this essential aspect, Yashangan Foundation takes numerous actions in order to guide the students in their studies, personality building, value education, and career planning. We ensure a balance between modernity and tradition by focusing on the intellectual, psychological, social, and spiritual aspects of our students' lives.
+              </p>
+            </div>
+
+            {/* Subtle Signature/Trust Element */}
+            <div className="mt-12 pt-8 border-t border-slate-200/60 flex items-center gap-5">
+              <div className="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center text-blue-900 border border-blue-100">
+                <Heart size={28} />
+              </div>
+              <div>
+                <p className="text-blue-900 font-bold italic text-2xl font-serif leading-none">
+                  Better Future, Together.
+                </p>
+                <p className="text-slate-400 text-sm font-medium mt-1">
+                  Established with a vision for social excellence.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
@@ -181,38 +315,97 @@ const Mission = () => {
   );
 };
 
-const Services = () => {
-  const services = [
-    { title: "Social Awareness", desc: "Health, education, and social responsibility campaigns.", icon: Users },
-    { title: "Educational Guidance", desc: "Career selection based on abilities and time management.", icon: BookOpen },
-    { title: "Value-Based Education", desc: "Developing honesty, discipline, and respect.", icon: Heart },
-    { title: "Yoga & Meditation", desc: "Increasing peace of mind and mental stability.", icon: Sparkles },
-    { title: "Women Empowerment", desc: "Skill development to make women self-reliant.", icon: Shield },
-    { title: "Environment", desc: "Tree plantation and cleanliness drives.", icon: Leaf },
-    { title: "Personality Development", desc: "Building self-confidence and leadership skills.", icon: Star },
-  ];
-
+const Approach360 = () => {
   return (
-    <section id="services" className="py-16 md:py-20 bg-slate-50 border-y border-slate-100">
-      <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-blue-950 mb-2 tracking-tight">What We Do</h2>
-          <p className="text-sm text-slate-500">Holistic programs designed for complete societal and educational progress.</p>
-        </div>
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden border-t border-slate-100">
+      {/* Subtle watermark patterns integrated from the logo vibe */}
+      <div className="absolute top-10 right-10 opacity-[0.03] pointer-events-none transform rotate-12 scale-150">
+        <Leaf size={200} className="text-green-800" />
+      </div>
+      <div className="absolute -bottom-10 left-0 opacity-[0.03] pointer-events-none transform -rotate-12 scale-150">
+        <Star size={200} className="text-blue-900" />
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group bg-white p-4 md:p-5 rounded-xl border border-slate-200 hover:border-blue-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <div className="w-10 h-10 rounded-lg bg-slate-50 group-hover:bg-blue-50 flex items-center justify-center mb-3 transition-colors">
-                <service.icon className="text-slate-600 group-hover:text-blue-600" size={20} />
-              </div>
-              <h3 className="font-extrabold text-blue-950 text-sm mb-1.5">{service.title}</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">{service.desc}</p>
+      <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          {/* Visual Column (Left): Staggered Overlapping Stack */}
+          <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center">
+            {/* Subtle Green Nature glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-green-50/60 rounded-full blur-[60px] z-0"></div>
+
+            <div className="absolute top-4 sm:top-8 left-0 sm:left-4 w-[55%] h-[50%] z-10">
+              <img
+                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=600"
+                alt="Education Support"
+                className="w-full h-full object-cover rounded-2xl shadow-xl transform hover:-translate-y-2 transition-transform duration-500"
+              />
             </div>
-          ))}
+
+            <div className="absolute bottom-4 sm:bottom-12 left-1/4 w-[50%] h-[45%] z-30">
+              <img
+                src="https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&q=80&w=600"
+                alt="Community Care"
+                className="w-full h-full object-cover rounded-2xl shadow-xl border-4 border-white transform hover:-translate-y-2 transition-transform duration-500"
+              />
+            </div>
+
+            <div className="absolute top-1/4 right-0 w-[55%] h-[60%] z-20">
+              <img
+                src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=600"
+                alt="Holistic Approach"
+                className="w-full h-full object-cover rounded-2xl shadow-xl border-4 border-white transform hover:-translate-y-2 transition-transform duration-500"
+              />
+            </div>
+
+            {/* Floating leaf accent */}
+            <div className="absolute top-12 right-12 z-40 bg-white p-3 rounded-full shadow-lg text-green-500 animate-bounce" style={{ animationDuration: '3s' }}>
+              <Leaf size={24} />
+            </div>
+          </div>
+
+          {/* Content Column (Right): Unboxed High-Density List */}
+          <div className="relative z-10">
+            <h2 className="text-blue-900 tracking-tight text-3xl font-bold mb-8 leading-tight">
+              Our 360-Degree Approach to Combat CSA
+            </h2>
+
+            <div className="space-y-6">
+              {/* Point 1: Knowledge & Prevention Work */}
+              <div className="group bg-transparent">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 text-blue-900 transition-colors duration-300">
+                    <Lightbulb size={28} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 font-sans">Knowledge & Prevention Work</h3>
+                    <p className="text-slate-700 text-sm leading-relaxed max-w-lg">
+                      Educates children, parents, teachers, and other staff in schools. Provides specialized training to law enforcement. Ensures a POCSO child-centric approach in handling sensitive situations effectively.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Line Separator */}
+              <div className="w-12 h-[1px] bg-slate-200 ml-12"></div>
+
+              {/* Point 2: Survivor & Family Support */}
+              <div className="group bg-transparent">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 text-blue-900 transition-colors duration-300">
+                    <HeartHandshake size={28} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 font-sans">Survivor & Family Support</h3>
+                    <p className="text-slate-700 text-sm leading-relaxed max-w-lg">
+                      Social workers provide assistance in filing FIRs, and physical/emotional support when children appear for police/court statements. We help access Govt. compensation and offer long-term support by connecting relevant NGOs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -221,49 +414,179 @@ const Services = () => {
 
 const Features = () => {
   return (
-    <section id="programs" className="py-16 md:py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-blue-950 mb-2 tracking-tight">Why Choose Us?</h2>
-              <p className="text-[13px] md:text-sm text-slate-600 max-w-sm leading-relaxed">A perfect balance of modern technology, personal guidance, and strong values.</p>
-            </div>
+    <section id="why-choose-us" className="relative py-24 lg:py-32 bg-white overflow-hidden">
+      {/* Background Watermarks */}
+      <div className="absolute top-10 right-10 opacity-[0.02] pointer-events-none transform rotate-12 scale-150">
+        <Leaf size={300} className="text-blue-900" />
+      </div>
+      <div className="absolute bottom-20 left-10 opacity-[0.02] pointer-events-none transform -rotate-12 scale-150">
+        <Star size={250} className="text-blue-900" />
+      </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="bg-green-100/60 p-1 rounded-full"><CheckCircle2 className="text-green-600" size={16} /></div>
-                <h4 className="text-sm font-bold text-blue-950">Expert-Led Guidance</h4>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="bg-green-100/60 p-1 rounded-full"><CheckCircle2 className="text-green-600" size={16} /></div>
-                <h4 className="text-sm font-bold text-blue-950">Technology-Driven Approach (DMIT)</h4>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="bg-green-100/60 p-1 rounded-full"><CheckCircle2 className="text-green-600" size={16} /></div>
-                <h4 className="text-sm font-bold text-blue-950">Personalized Attention</h4>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+          {/* Left Column: The Philosophy & Spotlight */}
+          <div className="flex flex-col">
+            <span className="text-orange-500 text-3xl font-[Caveat] mb-4 block">
+              The Yashangan Difference
+            </span>
+
+            <h2 className="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6 tracking-tight leading-tight">
+              Why Choose Us?
+            </h2>
+
+            <p className="text-slate-600 text-[15px] leading-relaxed mb-10 max-w-lg">
+              We don't just provide guidance; we create a foundation for lifelong success. Our approach perfectly balances modern scientific technology with deep, personal mentoring and traditional values.
+            </p>
+
+            {/* The Spotlight (Summer Workshop Integration) */}
+            <div className="relative group">
+              {/* Background Blob - Subtle, no hard border */}
+              <div className="absolute inset-0 bg-orange-50/50 rounded-3xl -m-2 blur-sm z-0"></div>
+
+              <div className="relative z-10 bg-orange-50/50 rounded-3xl p-8 border border-orange-100/50 shadow-sm group-hover:shadow-md transition-shadow duration-500">
+                <h3 className="text-xl font-bold text-blue-900 mb-6 flex items-center gap-3">
+
+                  Special Summer Personality Workshop
+                </h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                  {[
+                    "Concentration Building",
+                    "Stage Courage & Confidence",
+                    "Beautiful Handwriting",
+                    "Speed Memory"
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <div className="shrink-0 text-blue-500">
+                        <CheckCircle2 size={18} strokeWidth={2.5} />
+                      </div>
+                      <span className="text-slate-700 text-sm font-semibold">{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-orange-50/70 rounded-2xl p-5 md:p-6 border border-orange-100 shadow-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-100 rounded-full blur-2xl -mr-10 -mt-10 opacity-50 pointer-events-none"></div>
-            <div className="flex items-start md:items-center gap-3 mb-5 relative z-10">
-              <div className="bg-orange-500 p-2 rounded-lg text-white shadow-sm shrink-0">
-                <Sparkles size={18} />
+          {/* Right Column: The Floating Pillars */}
+          <div className="flex flex-col gap-12 lg:gap-16 pt-8 lg:pt-0">
+
+            {/* Pillar 1 */}
+            <div className="flex items-start gap-6 group hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
+              <div className="shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
+                <Users size={32} strokeWidth={1.5} />
               </div>
-              <h3 className="text-base md:text-lg font-extrabold text-orange-950 leading-tight">Special Summer Personality Development Workshop</h3>
+              <div>
+                <h3 className="text-lg font-bold text-blue-900 mb-2">Expert-Led Mentoring</h3>
+                <p className="text-slate-600 text-[15px] leading-relaxed">
+                  Our team consists of highly experienced experts in education, personality development, and social work who deeply analyze each student's potential.
+                </p>
+              </div>
             </div>
 
-            <ul className="space-y-2.5 relative z-10">
-              {['Concentration Building', 'Stage Courage', 'Good Handwriting', 'Speed Memory'].map((item, idx) => (
-                <li key={idx} className="flex items-center gap-2.5 bg-white/80 px-3 py-2 rounded-md border border-orange-200/40">
-                  <CheckCircle2 size={14} className="text-orange-500 shrink-0" />
-                  <span className="text-[13px] font-bold text-orange-950/80">{item}</span>
-                </li>
-              ))}
-            </ul>
+            {/* Pillar 2 - Pushed Right (Asymmetrical) */}
+            <div className="flex items-start gap-6 group lg:ml-12 hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
+              <div className="shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
+                <Brain size={32} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-blue-900 mb-2">Technology-Driven (DMIT)</h3>
+                <p className="text-slate-600 text-[15px] leading-relaxed">
+                  We utilize advanced Dermatoglyphics Multiple Intelligence Testing to scientifically analyze natural intelligence and accurately guide career choices.
+                </p>
+              </div>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="flex items-start gap-6 group hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
+              <div className="shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
+                <Heart size={32} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-blue-900 mb-2">Personalized Attention</h3>
+                <p className="text-slate-600 text-[15px] leading-relaxed">
+                  Every student is unique. We identify specific strengths and weaknesses to craft a customized training and development roadmap just for them.
+                </p>
+              </div>
+            </div>
+
           </div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Support = () => {
+  return (
+    <section id="donate" className="relative w-full overflow-hidden min-h-[300px] flex items-center" style={{ fontFamily: "'Noto Serif', serif" }}>
+      {/* Background Layer */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070')" }}
+      >
+        {/* Deep Navy Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/80 to-blue-900/30 z-10"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-10 md:py-14 lg:py-16 relative z-20 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* Left Column: The Emotional Hook */}
+          <div className="text-left space-y-4 md:space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-white"></div>
+              <span className="text-white tracking-[0.25em] text-xs md:text-sm font-bold uppercase">
+                MAKE A DIFFERENCE TODAY
+              </span>
+            </div>
+            
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-[1.2] tracking-tight max-w-xl">
+              Help us give wings to a child's dreams through proper education and guidance.
+            </h2>
+            
+            <p className="text-slate-200 text-base md:text-lg leading-relaxed max-w-lg">
+              Yashangan Foundation works to discover the hidden potential in every student. Your support provides them with the right direction, confidence, and value-based education to succeed in life.
+            </p>
+          </div>
+
+          {/* Right Column: Action Box (Floating Overlapping Card) */}
+          <div className="relative">
+            {/* The Container - Sharp edges, zero rounded corners as per premium editorial ref */}
+            <div className="bg-white p-10 lg:p-16 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] rounded-none relative z-10 transition-all duration-500 hover:shadow-[0_45px_70px_-20px_rgba(0,0,0,0.4)]">
+              
+              <h3 className="text-2xl font-bold text-blue-900 mb-6 tracking-tight">
+                DONATE NOW
+              </h3>
+              
+              <p className="text-slate-600 text-[15px] md:text-base leading-relaxed mb-10">
+                Your contribution directly helps us mentor and guide students who need it most. Together, we can build a confident, self-reliant, and successful new generation.
+              </p>
+              
+              {/* Location Element */}
+              <div className="flex items-center gap-3 text-orange-500 font-bold mb-12">
+                <MapPin size={18} strokeWidth={2.5} />
+                <span className="text-xs md:text-sm uppercase tracking-widest">Satara, Maharashtra</span>
+              </div>
+
+              {/* The CTA Button Wrapper */}
+              <div className="pt-10 border-t border-slate-100">
+                <button className="group w-full flex items-center justify-between text-blue-900 font-bold text-lg md:text-xl hover:text-orange-500 transition-all duration-300 ease-in-out">
+                  <span className="tracking-tighter uppercase">CLICK TO DONATE</span>
+                  <div className="bg-slate-50 group-hover:bg-orange-50 p-2 transition-colors duration-300">
+                    <Plus size={24} strokeWidth={3} className="text-orange-500 group-hover:rotate-90 transition-transform duration-500" />
+                  </div>
+                </button>
+              </div>
+            </div>
+            
+            {/* Subtle glow behind card */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl z-0 pointer-events-none"></div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -441,8 +764,10 @@ function App() {
       <Hero />
       <AboutUs />
       <Mission />
-      <Services />
+      <Approach360 />
+      {/* <Services /> */}
       <Features />
+      <Support />
       <Directors />
       <DirectorMessage />
       <Footer />
