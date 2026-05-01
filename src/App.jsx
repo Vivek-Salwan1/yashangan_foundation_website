@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   Users, BookOpen, Heart, Leaf, Sparkles, Shield, Star,
   ArrowRight, Brain, CheckCircle2, ChevronRight, ChevronLeft, Menu, HeartHandshake, Lightbulb, MapPin, Plus
 } from 'lucide-react';
+import AboutPage from './pages/aboutPage';
+import ProgramsPage from './pages/programsPage';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const Preloader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,16 +72,16 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8">
         <div className="flex justify-between items-center py-2.5">
-          <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <img src="/logopng.png" alt="Yashangan Foundation" className="h-10 md:h-12 w-auto object-contain drop-shadow-sm" />
             <span className="font-bold text-lg text-blue-900 tracking-tight">
               Yashangan Foundation
             </span>
-          </div>
+          </Link>
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#about" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">About us</a>
+            <Link to="/about" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">About us</Link>
             <a href="#services" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">What we do</a>
-            <a href="#programs" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">Programs</a>
+            <Link to="/programs" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">Programs</Link>
             <a href="#contact" className="text-sm font-medium text-slate-600 hover:text-blue-900 transition-colors">Contact us</a>
             <button className="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-md text-sm font-semibold transition-all shadow-sm">
               <Heart size={14} className="fill-current" />
@@ -524,7 +535,7 @@ const Support = () => {
   return (
     <section id="donate" className="relative w-full overflow-hidden min-h-[300px] flex items-center" style={{ fontFamily: "'Noto Serif', serif" }}>
       {/* Background Layer */}
-      <div 
+      <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070')" }}
       >
@@ -534,20 +545,20 @@ const Support = () => {
 
       <div className="max-w-7xl mx-auto px-4 py-10 md:py-14 lg:py-16 relative z-20 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          
+
           {/* Left Column: The Emotional Hook */}
           <div className="text-left space-y-4 md:space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-2 h-2 bg-white"></div>
+              <div className="w-2 h-2 rounded-full bg-white"></div>
               <span className="text-white tracking-[0.25em] text-xs md:text-sm font-bold uppercase">
                 MAKE A DIFFERENCE TODAY
               </span>
             </div>
-            
+
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-[1.2] tracking-tight max-w-xl">
               Help us give wings to a child's dreams through proper education and guidance.
             </h2>
-            
+
             <p className="text-slate-200 text-base md:text-lg leading-relaxed max-w-lg">
               Yashangan Foundation works to discover the hidden potential in every student. Your support provides them with the right direction, confidence, and value-based education to succeed in life.
             </p>
@@ -557,15 +568,15 @@ const Support = () => {
           <div className="relative">
             {/* The Container - Sharp edges, zero rounded corners as per premium editorial ref */}
             <div className="bg-white p-10 lg:p-16 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] rounded-none relative z-10 transition-all duration-500 hover:shadow-[0_45px_70px_-20px_rgba(0,0,0,0.4)]">
-              
+
               <h3 className="text-2xl font-bold text-blue-900 mb-6 tracking-tight">
                 DONATE NOW
               </h3>
-              
+
               <p className="text-slate-600 text-[15px] md:text-base leading-relaxed mb-10">
                 Your contribution directly helps us mentor and guide students who need it most. Together, we can build a confident, self-reliant, and successful new generation.
               </p>
-              
+
               {/* Location Element */}
               <div className="flex items-center gap-3 text-orange-500 font-bold mb-12">
                 <MapPin size={18} strokeWidth={2.5} />
@@ -582,7 +593,7 @@ const Support = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Subtle glow behind card */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl z-0 pointer-events-none"></div>
           </div>
@@ -756,11 +767,9 @@ const Footer = () => {
   );
 }
 
-function App() {
+const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-800 antialiased selection:bg-orange-200 selection:text-orange-900">
-      <Preloader />
-      <Navbar />
+    <>
       <Hero />
       <AboutUs />
       <Mission />
@@ -770,8 +779,25 @@ function App() {
       <Support />
       <Directors />
       <DirectorMessage />
-      <Footer />
-    </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen bg-white font-sans text-slate-800 antialiased selection:bg-orange-200 selection:text-orange-900">
+        <Preloader />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/programs" element={<ProgramsPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }
 
