@@ -185,6 +185,33 @@ const heroSlides = [
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Minimum swipe distance (in pixels) to trigger slide change
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // Reset touchEnd on start
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -206,7 +233,13 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="hero-section relative w-full h-[600px] md:h-[800px] lg:h-screen min-h-[600px] overflow-hidden bg-slate-900 group">
+    <section 
+      id="home" 
+      className="hero-section relative w-full h-[600px] md:h-[800px] lg:h-screen min-h-[600px] overflow-hidden bg-slate-900 group"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Background Images with smooth cross-fade */}
       {heroSlides.map((slide, index) => (
         <div
