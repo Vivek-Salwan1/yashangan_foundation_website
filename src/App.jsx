@@ -4,6 +4,7 @@ import { Users, BookOpen, Heart, Leaf, Sparkles, Shield, Star, ArrowRight, Brain
 import AboutPage from './pages/aboutPage';
 import ProgramsPage from './pages/programsPage';
 import './css/landingPage.css';
+import './css/WhyChooseUs.css';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -71,44 +72,44 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex justify-between items-center h-20 md:h-24">
+        <div className="flex justify-between items-center h-14 md:h-16">
           {/* Left Side: Logo & Branding */}
           <Link to="/" className="flex items-center gap-2 md:gap-3 hover:opacity-90 transition-opacity shrink-0">
-            <img src="/logopng.png" alt="Yashangan Foundation" className="h-8 md:h-14 w-auto object-contain" />
-            <span className="font-bold text-sm min-[400px]:text-lg md:text-2xl text-blue-900 tracking-tight whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] min-[380px]:max-w-[180px] sm:max-w-none">
+            <img src="/logopng.png" alt="Yashangan Foundation" className="h-6 md:h-10 w-auto object-contain" />
+            <span className="font-bold text-xs min-[400px]:text-base md:text-xl text-blue-900 tracking-tight whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] min-[380px]:max-w-[180px] sm:max-w-none">
               Yashangan Foundation
             </span>
           </Link>
 
           {/* Right Side: Navigation & Actions */}
-          <div className="flex items-center gap-1.5 min-[400px]:gap-3 md:gap-8">
+          <div className="flex items-center gap-1 min-[400px]:gap-2 md:gap-5">
             {/* Desktop Links */}
-            <div className="hidden md:flex items-center gap-8">
-              <Link to="/about" className="text-sm lg:text-base font-semibold text-slate-600 hover:text-blue-900 transition-colors">About us</Link>
-              <a href="#services" className="text-sm lg:text-base font-semibold text-slate-600 hover:text-blue-900 transition-colors">What we do</a>
-              <Link to="/programs" className="text-sm lg:text-base font-semibold text-slate-600 hover:text-blue-900 transition-colors">Programs</Link>
-              <a href="#contact" className="text-sm lg:text-base font-semibold text-slate-600 hover:text-blue-900 transition-colors">Contact us</a>
+            <div className="hidden md:flex items-center gap-5">
+              <Link to="/about" className="text-xs lg:text-sm font-semibold text-slate-600 hover:text-blue-900 transition-colors">About us</Link>
+              <a href="#services" className="text-xs lg:text-sm font-semibold text-slate-600 hover:text-blue-900 transition-colors">What we do</a>
+              <Link to="/programs" className="text-xs lg:text-sm font-semibold text-slate-600 hover:text-blue-900 transition-colors">Programs</Link>
+              <a href="#contact" className="text-xs lg:text-sm font-semibold text-slate-600 hover:text-blue-900 transition-colors">Contact us</a>
             </div>
 
             {/* Donate Button (Always Visible) */}
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full flex items-center justify-center transition-all duration-300 shadow-lg px-4 py-2 text-[10px] sm:text-xs md:px-8 md:py-3 md:text-base whitespace-nowrap">
-              <Heart size={16} className="mr-2 hidden sm:inline fill-current" />
+            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-sm flex items-center justify-center transition-all duration-300 shadow-lg px-3 py-1.5 text-[9px] sm:text-[10px] md:px-6 md:py-2 md:text-sm whitespace-nowrap">
+              <Heart size={14} className="mr-2 hidden sm:inline fill-current" />
               Donate Now
             </button>
 
             {/* Hamburger Icon (Mobile Only) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="block md:hidden text-blue-900 p-2 focus:outline-none hover:bg-slate-50 rounded-lg transition-colors"
+              className="block md:hidden text-blue-900 p-1.5 focus:outline-none hover:bg-slate-50 rounded-lg transition-colors"
             >
-              <Menu size={28} />
+              <Menu size={20} />
             </button>
           </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="absolute top-20 left-0 w-full bg-white shadow-2xl border-t border-slate-100 flex flex-col p-6 gap-4 md:hidden z-50 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="absolute top-14 left-0 w-full bg-white shadow-2xl border-t border-slate-100 flex flex-col p-6 gap-4 md:hidden z-50 animate-in fade-in slide-in-from-top-4 duration-300">
             <Link
               to="/about"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -261,7 +262,7 @@ const Hero = () => {
       </button>
 
       {/* Carousel Controls - Dots */}
-      <div className="hero-dots absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+      <div className="hero-dots absolute bottom-8 left-0 right-0 flex items-center justify-center gap-3 z-20">
         {heroSlides.map((_, index) => (
           <button
             key={index}
@@ -389,6 +390,11 @@ const Approach360 = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8 relative z-10">
+        {/* Mobile Heading: Visible only on small screens, placed above images */}
+        <h2 className="lg:hidden text-blue-900 tracking-tight text-2xl font-bold mb-10 leading-tight text-center">
+          Our 360-Degree Approach to Combat CSA
+        </h2>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
           {/* Visual Column (Left): Staggered Overlapping Stack */}
@@ -428,7 +434,8 @@ const Approach360 = () => {
 
           {/* Content Column (Right): Unboxed High-Density List */}
           <div className="relative z-10">
-            <h2 className="text-blue-900 tracking-tight text-3xl font-bold mb-8 leading-tight">
+            {/* Desktop Heading: Hidden on mobile, visible on lg screens */}
+            <h2 className="hidden lg:block text-blue-900 tracking-tight text-3xl font-bold mb-8 leading-tight">
               Our 360-Degree Approach to Combat CSA
             </h2>
 
@@ -514,7 +521,7 @@ const InteractiveWorkshopVisual = () => {
 
 const Features = () => {
   return (
-    <section id="why-choose-us" className="relative py-24 lg:py-32 bg-white overflow-hidden">
+    <section id="why-choose-us" className="features-section relative py-24 lg:py-32 bg-white overflow-hidden">
       {/* Background Watermarks */}
       <div className="absolute top-10 right-10 opacity-[0.02] pointer-events-none transform rotate-12 scale-150">
         <Leaf size={300} className="text-blue-900" />
@@ -528,35 +535,35 @@ const Features = () => {
 
           {/* Left Column: The Philosophy & Spotlight */}
           <div className="flex flex-col">
-            <span className="text-orange-500 text-3xl font-[Caveat] mb-4 block">
+            <span className="features-eyebrow text-orange-500 text-3xl font-[Caveat] mb-4 block">
               The Yashangan Difference
             </span>
 
-            <h2 className="text-4xl md:text-5xl font-extrabold text-black mb-6 tracking-tight leading-tight">
+            <h2 className="features-title text-4xl md:text-5xl font-extrabold text-black mb-6 tracking-tight leading-tight">
               Why Choose Us?
             </h2>
 
-            <p className="text-slate-600 text-[15px] leading-relaxed mb-10 max-w-lg">
+            <p className="features-desc text-slate-600 text-[15px] leading-relaxed mb-10 max-w-lg">
               We don't just provide guidance; we create a foundation for lifelong success. Our approach perfectly balances modern scientific technology with deep, personal mentoring and traditional values.
             </p>
 
             {/* The Spotlight (Summer Workshop Integration) - Editorial Refactoring */}
-            <div className="mt-16 pt-10 border-t border-slate-100 flex flex-col md:flex-row items-start gap-8 lg:gap-12 group">
+            <div className="workshop-container mt-16 pt-10 border-t border-slate-100 flex flex-col md:flex-row items-start gap-8 lg:gap-12 group">
               <div className="w-full md:w-2/5 shrink-0">
                 <InteractiveWorkshopVisual />
               </div>
 
               <div className="flex-1 space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-blue-600 mb-3">
+                  <h3 className="workshop-title text-2xl font-bold text-blue-600 mb-3">
                     Special Summer Personality Workshop
                   </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed max-w-md">
+                  <p className="workshop-desc text-slate-500 text-sm leading-relaxed max-w-md">
                     An intensive, activity-based program designed to transform young minds through scientific personality assessment and skill-building.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                <div className="workshop-items-grid grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                   {[
                     "Concentration Building",
                     "Stage Courage & Confidence",
@@ -567,7 +574,7 @@ const Features = () => {
                       <div className="w-5 h-5 rounded-full flex items-center justify-center text-black shrink-0">
                         <CheckCircle2 size={12} strokeWidth={3} />
                       </div>
-                      <span className="text-slate-700 text-sm font-semibold tracking-tight">{item}</span>
+                      <span className="workshop-item-text text-slate-700 text-sm font-semibold tracking-tight">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -576,42 +583,42 @@ const Features = () => {
           </div>
 
           {/* Right Column: The Floating Pillars */}
-          <div className="flex flex-col gap-12 lg:gap-16 pt-8 lg:pt-0">
+          <div className="pillars-container flex flex-col gap-12 lg:gap-16 pt-8 lg:pt-0">
 
             {/* Pillar 1 */}
-            <div className="flex items-start gap-6 group hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
-              <div className="shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
+            <div className="pillar-card flex items-start gap-6 group hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
+              <div className="pillar-icon-wrapper shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
                 <img width="100" height="100" src="https://img.icons8.com/bubbles/100/training.png" alt="training" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-black mb-2">Expert-Led Mentoring</h3>
-                <p className="text-slate-600 text-[15px] leading-relaxed">
+                <h3 className="pillar-title text-lg font-bold text-black mb-2">Expert-Led Mentoring</h3>
+                <p className="pillar-desc text-slate-600 text-[15px] leading-relaxed">
                   Our team consists of highly experienced experts in education, personality development, and social work who deeply analyze each student's potential.
                 </p>
               </div>
             </div>
 
             {/* Pillar 2 - Pushed Right (Asymmetrical) */}
-            <div className="flex items-start gap-6 group lg:ml-12 hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
-              <div className="shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
+            <div className="pillar-card flex items-start gap-6 group lg:ml-12 hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
+              <div className="pillar-icon-wrapper shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
                 <img width="100" height="100" src="https://img.icons8.com/clouds/100/technology.png" alt="technology" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-black mb-2">Technology-Driven (DMIT)</h3>
-                <p className="text-slate-600 text-[15px] leading-relaxed">
+                <h3 className="pillar-title text-lg font-bold text-black mb-2">Technology-Driven (DMIT)</h3>
+                <p className="pillar-desc text-slate-600 text-[15px] leading-relaxed">
                   We utilize advanced Dermatoglyphics Multiple Intelligence Testing to scientifically analyze natural intelligence and accurately guide career choices.
                 </p>
               </div>
             </div>
 
             {/* Pillar 3 */}
-            <div className="flex items-start gap-6 group hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
-              <div className="shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
+            <div className="pillar-card flex items-start gap-6 group hover:shadow-lg hover:shadow-slate-100/50 p-6 rounded-2xl transition-all duration-500">
+              <div className="pillar-icon-wrapper shrink-0 p-3 bg-blue-50 rounded-xl text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-500">
                 <img width="80" height="80" src="https://img.icons8.com/officel/80/person-male.png" alt="person-male" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-black mb-2">Personalized Attention</h3>
-                <p className="text-slate-600 text-[15px] leading-relaxed">
+                <h3 className="pillar-title text-lg font-bold text-black mb-2">Personalized Attention</h3>
+                <p className="pillar-desc text-slate-600 text-[15px] leading-relaxed">
                   Every student is unique. We identify specific strengths and weaknesses to craft a customized training and development roadmap just for them.
                 </p>
               </div>
@@ -736,11 +743,11 @@ const Directors = () => {
         </div>
 
         {/* The Leadership Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-20">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-10 gap-y-10 md:gap-y-20">
           {leaders.map((leader, idx) => (
             <div key={idx} className="group flex flex-col items-center">
               {/* The Portrait Container */}
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-2">
+              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-xl md:rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-2">
                 <img
                   src={leader.image}
                   alt={leader.name}
@@ -751,20 +758,13 @@ const Directors = () => {
               </div>
 
               {/* The Data Layer */}
-              <div className="mt-7 text-center space-y-2">
-                <h3 className="text-black font-extrabold text-xl lg:text-2xl leading-tight transition-colors duration-300">
+              <div className="mt-4 md:mt-7 text-center space-y-1 md:space-y-2">
+                <h3 className="text-black font-extrabold text-xs sm:text-base md:text-xl lg:text-2xl leading-tight transition-colors duration-300">
                   {leader.name}
                 </h3>
-                <p className="text-black font-medium text-xs md:text-sm tracking-[0.2em] uppercase">
+                <p className="text-black font-medium text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.2em] uppercase">
                   {leader.role}
                 </p>
-
-                {/* Revealable Social Link */}
-                {/* <div className="pt-4 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-50 text-blue-900 hover:bg-blue-900 hover:text-white transition-all duration-300 border border-slate-100">
-                    <Linkedin size={14} />
-                  </a>
-                </div> */}
               </div>
             </div>
           ))}
@@ -779,6 +779,18 @@ const DirectorMessage = () => {
     <section className="py-16 md:py-20 bg-slate-50 border-t border-slate-100">
       <div className="max-w-6xl mx-auto px-4 md:px-5 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
+          {/* Mobile Heading: Visible only on small screens */}
+          <div className="md:hidden space-y-4 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-[2px] bg-orange-500"></div>
+              <span className="text-xs font-bold uppercase tracking-widest text-orange-600 truncate">
+                Yashangan Foundation
+              </span>
+            </div>
+            <h2 className="text-2xl font-extrabold text-black tracking-tight leading-tight">
+              Message from the Directors
+            </h2>
+          </div>
 
           {/* Left Column: Visual */}
           <div className="relative flex justify-center md:justify-start lg:justify-center">
@@ -797,18 +809,19 @@ const DirectorMessage = () => {
 
           {/* Right Column: Content */}
           <div className="space-y-6">
-            {/* Eyebrow */}
-            <div className="flex items-center gap-3">
-              <div className="w-6 h-[2px] bg-orange-500"></div>
-              <span className="text-xs font-bold uppercase tracking-widest text-orange-600 truncate">
-                Yashangan Foundation
-              </span>
-            </div>
+            {/* Desktop Heading: Hidden on mobile */}
+            <div className="hidden md:block space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-[2px] bg-orange-500"></div>
+                <span className="text-xs font-bold uppercase tracking-widest text-orange-600 truncate">
+                  Yashangan Foundation
+                </span>
+              </div>
 
-            {/* Main Heading */}
-            <h2 className="text-2xl md:text-3xl lg:text-[32px] font-extrabold text-black tracking-tight leading-tight">
-              Message from the Directors
-            </h2>
+              <h2 className="text-2xl md:text-3xl lg:text-[32px] font-extrabold text-black tracking-tight leading-tight">
+                Message from the Directors
+              </h2>
+            </div>
 
             {/* Body Text */}
             <div className="space-y-4">
@@ -822,7 +835,7 @@ const DirectorMessage = () => {
 
             {/* Profile Block */}
             <div className="mt-8 pt-6 border-t border-slate-200/60">
-              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div className="flex flex-row items-start gap-4">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 border border-blue-200 shadow-sm mt-1">
                   <span className="text-blue-900 font-bold text-lg tracking-tighter">DM</span>
                 </div>
