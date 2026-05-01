@@ -1,0 +1,102 @@
+/* Hide mobile-only elements by default on desktop/tablet */
+.hero-tag {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 40vh !important;
+        min-height: unset !important;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .hero-section .swiper,
+    .hero-section .swiper-wrapper,
+    .hero-section .swiper-slide {
+        height: 100% !important;
+    }
+
+    .hero-section img,
+    .hero-section .hero-bg {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+    }
+
+    .hero-section .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.2),
+                rgba(0, 0, 0, 0.6));
+    }
+
+    .hero-section .hero-content {
+        position: absolute !important;
+        bottom: 35px !important;
+        top: auto !important;
+        left: 16px !important;
+        right: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .hero-section .hero-tag {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #ffd54f;
+        margin-bottom: 6px;
+    }
+
+    .hero-section .hero-title {
+        font-size: 20px;
+        /* slight adjustment for better fit */
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 6px;
+    }
+
+    .hero-section .hero-desc {
+        font-size: 12px;
+        /* slightly reduced */
+        line-height: 1.4;
+        opacity: 0.9;
+        margin-bottom: 8px;
+    }
+
+    .hero-section .hero-btn {
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .hero-section .hero-dots {
+        position: absolute !important;
+        bottom: 8px !important;
+        left: 0 !important;
+        right: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        gap: 6px !important;
+    }
+
+    .hero-section .hero-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ccc;
+    }
+
+    .hero-section .hero-dot.active {
+        background: #ffc107;
+        width: 14px;
+        border-radius: 10px;
+    }
+}

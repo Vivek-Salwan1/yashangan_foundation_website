@@ -4,6 +4,8 @@
   --font-sans: "Plus Jakarta Sans", sans-serif;
 }
 
-body {
+html, body {
   font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
 }
