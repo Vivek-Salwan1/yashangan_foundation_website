@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Users, BookOpen, Heart, Leaf, Sparkles, Shield, Star, ArrowRight, Brain, CheckCircle2, ChevronRight, ChevronLeft, Menu, HeartHandshake, Lightbulb, MapPin, Plus, } from 'lucide-react';
+import { Users, BookOpen, Heart, Leaf, Sparkles, Shield, Star, ArrowRight, Brain, CheckCircle2, ChevronRight, ChevronLeft, Menu, HeartHandshake, Lightbulb, MapPin, Plus, X } from 'lucide-react';
 import AboutPage from './pages/aboutPage';
 import ProgramsPage from './pages/programsPage';
 import './css/landingPage.css';
@@ -66,7 +66,7 @@ const Preloader = () => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ onDonateClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -92,7 +92,10 @@ const Navbar = () => {
             </div>
 
             {/* Donate Button (Always Visible) */}
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-sm flex items-center justify-center transition-all duration-300 shadow-lg px-3 py-1.5 text-[9px] sm:text-[10px] md:px-6 md:py-2 md:text-sm whitespace-nowrap">
+            <button
+              onClick={onDonateClick}
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-sm flex items-center justify-center transition-all duration-300 shadow-lg px-3 py-1.5 text-[9px] sm:text-[10px] md:px-6 md:py-2 md:text-sm whitespace-nowrap"
+            >
               <Heart size={14} className="mr-2 hidden sm:inline fill-current" />
               Donate Now
             </button>
@@ -138,6 +141,16 @@ const Navbar = () => {
             >
               Contact Us
             </a>
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onDonateClick();
+              }}
+              className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 mt-2"
+            >
+              <Heart size={18} className="fill-current" />
+              Donate Now
+            </button>
           </div>
         )}
       </div>
@@ -233,8 +246,8 @@ const Hero = () => {
   };
 
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       className="hero-section relative w-full h-[600px] md:h-[800px] lg:h-screen min-h-[600px] overflow-hidden bg-slate-900 group"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
@@ -332,7 +345,7 @@ const AboutUs = () => {
             {/* Main Image Container */}
             <div className="relative z-10 rounded-2xl shadow-2xl overflow-hidden border-8 border-white">
               <img
-                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=2070&auto=format&fit=crop"
+                src="/aboutbg.jpg"
                 alt="Students studying and growing together"
                 className="w-full h-[400px] md:h-[550px] object-cover hover:scale(105) transition-transform duration-700"
               />
@@ -437,7 +450,7 @@ const Approach360 = () => {
 
             <div className="absolute top-4 sm:top-8 left-0 sm:left-4 w-[55%] h-[50%] z-10">
               <img
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=600"
+                src="/csa/csa1.jpg"
                 alt="Education Support"
                 className="w-full h-full object-cover rounded-2xl shadow-xl transform hover:-translate-y-2 transition-transform duration-500"
               />
@@ -445,7 +458,7 @@ const Approach360 = () => {
 
             <div className="absolute bottom-4 sm:bottom-12 left-1/4 w-[50%] h-[45%] z-30">
               <img
-                src="https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&q=80&w=600"
+                src="/csa/csa2.avif"
                 alt="Community Care"
                 className="w-full h-full object-cover rounded-2xl shadow-xl border-4 border-white transform hover:-translate-y-2 transition-transform duration-500"
               />
@@ -453,7 +466,7 @@ const Approach360 = () => {
 
             <div className="absolute top-1/4 right-0 w-[55%] h-[60%] z-20">
               <img
-                src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=600"
+                src="/csa/csa3.jpg"
                 alt="Holistic Approach"
                 className="w-full h-full object-cover rounded-2xl shadow-xl border-4 border-white transform hover:-translate-y-2 transition-transform duration-500"
               />
@@ -665,13 +678,13 @@ const Features = () => {
   );
 };
 
-const Support = () => {
+const Support = ({ onDonateClick }) => {
   return (
     <section id="donate" className="relative w-full overflow-hidden min-h-[300px] flex items-center" style={{ fontFamily: "'Noto Serif', serif" }}>
       {/* Background Layer */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070')" }}
+        style={{ backgroundImage: "url('/donatebg.jpg')" }}
       >
         {/* Deep Navy Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/80 to-blue-900/30 z-10"></div>
@@ -719,7 +732,10 @@ const Support = () => {
 
               {/* The CTA Button Wrapper */}
               <div className="pt-10 border-t border-slate-100">
-                <button className="group w-full flex items-center justify-between text-blue-900 font-bold text-lg md:text-xl hover:text-orange-500 transition-all duration-300 ease-in-out">
+                <button
+                  onClick={onDonateClick}
+                  className="group w-full flex items-center justify-between text-blue-900 font-bold text-lg md:text-xl hover:text-orange-500 transition-all duration-300 ease-in-out"
+                >
                   <span className="tracking-tighter uppercase">CLICK TO DONATE</span>
                   <div className="bg-slate-50 group-hover:bg-orange-50 p-2 transition-colors duration-300">
                     <Plus size={24} strokeWidth={3} className="text-orange-500 group-hover:rotate-90 transition-transform duration-500" />
@@ -949,7 +965,7 @@ const Footer = () => {
   );
 }
 
-const LandingPage = () => {
+const LandingPage = ({ onDonateClick }) => {
   return (
     <>
       <Hero />
@@ -958,26 +974,187 @@ const LandingPage = () => {
       <Approach360 />
       {/* <Services /> */}
       <Features />
-      <Support />
+      <Support onDonateClick={onDonateClick} />
       <Directors />
       <DirectorMessage />
     </>
   );
 };
 
+const DonateModal = ({ isOpen, onClose }) => {
+  const [selectedAmount, setSelectedAmount] = useState('₹1000');
+  const [customAmount, setCustomAmount] = useState('');
+
+  if (!isOpen) return null;
+
+  const amounts = ['₹500', '₹1000', '₹5000', 'Custom'];
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-4xl bg-white rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] animate-in zoom-in-95 duration-300"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-20 bg-white/80 hover:bg-slate-100 rounded-full p-2 text-slate-500 hover:text-red-500 transition-colors shadow-sm"
+        >
+          <X size={20} />
+        </button>
+
+        {/* Left Side: Emotional Anchor */}
+        <div className="w-full md:w-2/5 h-48 md:h-auto relative hidden sm:block">
+          <img
+            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop"
+            alt="Children smiling"
+            className="object-cover w-full h-full"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent flex items-end p-8">
+            <p className="text-white font-serif font-bold text-xl leading-tight">
+              Your support shapes the future.
+            </p>
+          </div>
+        </div>
+
+        {/* Right Side: Human-Friendly Form */}
+        <div className="w-full md:w-3/5 p-8 md:p-12 overflow-y-auto font-serif">
+          <div className="mb-8">
+            <h2 className="text-3xl text-blue-900 font-extrabold tracking-tight mb-2">
+              Make a Difference Today
+            </h2>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              100% of your donation goes directly toward student mentoring and child protection programs.
+            </p>
+          </div>
+
+          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            {/* Donation Amount Chips */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-700 block">Select Amount</label>
+              <div className="flex flex-wrap gap-3">
+                {amounts.map((amount) => (
+                  <button
+                    key={amount}
+                    type="button"
+                    onClick={() => setSelectedAmount(amount)}
+                    className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${selectedAmount === amount
+                      ? 'bg-orange-500 text-white shadow-md'
+                      : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                      }`}
+                  >
+                    {amount}
+                  </button>
+                ))}
+              </div>
+
+              {selectedAmount === 'Custom' && (
+                <div className="animate-in slide-in-from-top-2 duration-300">
+                  <input
+                    type="number"
+                    placeholder="Enter custom amount (₹)"
+                    value={customAmount}
+                    onChange={(e) => setCustomAmount(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Input Fields */}
+            <div className="grid grid-cols-1 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Full Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
+                  <input
+                    type="email"
+                    placeholder="name@email.com"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Phone Number</label>
+                  <input
+                    type="tel"
+                    placeholder="+91"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">PAN Card (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="For tax exemption (80G)"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all placeholder:text-slate-400 text-slate-700 uppercase"
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 mt-6 flex items-center justify-center gap-2 group"
+            >
+              Proceed to Payment
+              <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            {/* Trust Badge */}
+            <div className="flex items-center justify-center gap-2 text-slate-400 text-xs mt-4">
+              <Shield size={14} className="text-blue-400" />
+              <span>Secure SSL Encrypted Payment</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function App() {
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+
+  // Body Lock Effect
+  useEffect(() => {
+    if (isDonateModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isDonateModalOpen]);
+
+  const toggleDonateModal = () => setIsDonateModalOpen(!isDonateModalOpen);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen bg-white font-sans text-slate-800 antialiased selection:bg-orange-200 selection:text-orange-900">
         <Preloader />
-        <Navbar />
+        <Navbar onDonateClick={toggleDonateModal} />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage onDonateClick={toggleDonateModal} />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/programs" element={<ProgramsPage />} />
         </Routes>
         <Footer />
+
+        {/* Global Modal */}
+        <DonateModal isOpen={isDonateModalOpen} onClose={toggleDonateModal} />
       </div>
     </BrowserRouter>
   )
